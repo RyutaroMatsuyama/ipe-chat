@@ -1,28 +1,42 @@
 <div class="main">
-    <div class="chat">
-      <div class="chat-container">
-          <div class="message-box">
-            <div class="message-left">
-              <p class="message-info">
-                test
-                <span>2020/06/08(Mon) 09:55</span>
-              </p>
-              <p class="message-content">あああああ</p>
-            </div>
-            <div class="message-right">
-              <ul>
-                <li><a href="/">edit</a></li>
-                <li><a href="/">delete</a></li>
-              </ul>
-            </div>
-          </div>
-      </div>
+    <div class="chat" id="chat-index">
+        <div class="chat-container">
+          <% for message in @messages do %>
+            <% unless message.blank? %>
+                <div class="message-box">
+                    <div class="message-left">
+                        <p class="message-info">
+                            ユーザー名
+                            <span>
+                            <%= message.created_at.strftime("%Y/%m/%d(%a) %H:%M") %>
+                            </span>
+                        </p>
+                        <p class="message-content"><%= message.content %></p>
+                    </div>
+                    <div class="message-right">
+                        <ul>
+                            <li>
+                                <a href="#">edit</a>
+                            </li>
+                            <li>
+                                <a href="#">delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            <% else %>
+                <div class="message-box">
+                    <p>No message yet.</p>
+                </div>
+            <% end %>
+          <% end %>
+        </div>
     </div>
 
     <div class="chat-form">
-      <form>
-        <input type="text">
-        <input type="submit" value="SEND">
-      </form>
+        <form>
+            <input id="chat-form" type="text">
+            <input type="submit" value="SEND">
+        </form>
     </div>
 </div>
