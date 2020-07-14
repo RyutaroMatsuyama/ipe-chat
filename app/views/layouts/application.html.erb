@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Myapp</title>
+    <title>ipe-chat</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
+    <header>
+      <div>
+        <a href="/">
+          <img src="/assets/logo_grey.png">
+        </a>
+      </div>
+      <ul>
+        <li><a href="#">SIGNUP</a></li>
+        <li><a href="#">LOGIN</a></li>
+        <li><a href="#">LOGOUT</a></li>
+      </ul>
+    </header>
     <%= yield %>
   </body>
 </html>
