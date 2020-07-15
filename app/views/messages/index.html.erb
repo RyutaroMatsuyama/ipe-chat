@@ -3,7 +3,7 @@
         <div class="chat-container">
           <% unless @messages.blank? %>
             <% for message in @messages do %>
-                <div class="message-box">
+                <div class="message-box" data-message-id = <%=message.id %> >
                     <div class="message-left">
                         <p class="message-info">
                             <%= message.user.name %>
@@ -40,7 +40,7 @@
     </div>
 
     <div class="chat-form">
-      <%= form_with model: @message, url: messages_path, local: true do |f| %>
+      <%= form_with model: @message, url: messages_path, id: "new_message" do |f| %>
        <%= f.text_field :content, id: "chat-form" %>
        <%=f.submit "SEND" %>
       <% end %>
