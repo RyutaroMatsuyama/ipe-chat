@@ -1,12 +1,12 @@
 <div class="main">
     <div class="chat" id="chat-index">
         <div class="chat-container">
-          <% for message in @messages do %>
-            <% unless message.blank? %>
+          <% unless @messages.blank? %>
+            <% for message in @messages do %>
                 <div class="message-box">
                     <div class="message-left">
                         <p class="message-info">
-                            ユーザー名
+                            <%= message.user.name %>
                             <span>
                             <%= message.created_at.strftime("%Y/%m/%d(%a) %H:%M") %>
                             </span>
@@ -14,29 +14,32 @@
                         <p class="message-content"><%= message.content %></p>
                     </div>
                     <div class="message-right">
+                      <% if message.user_id == current_user.id %>
                         <ul>
                             <li>
-                                <a href="#">edit</a>
+                                <%= link_to "edit", edit_message_path(message.id) %>
                             </li>
                             <li>
-                                <a href="#">delete</a>
+                                <%= link_to "delete", message_path(message.id), method: :delete %>
                             </li>
                         </ul>
+                      <% end %>
                     </div>
                 </div>
-            <% else %>
+            <% end %>
+          <% else %>
                 <div class="message-box">
                     <p>No message yet.</p>
                 </div>
-            <% end %>
           <% end %>
+
         </div>
     </div>
 
     <div class="chat-form">
-        <form>
-            <input id="chat-form" type="text">
-            <input type="submit" value="SEND">
-        </form>
+      <%= form_with model: @message, url: messages_path, local: true do |f| %>
+       <%= f.text_field :content, id: "chat-form" %>
+       <%=f.submit "SEND" %>
+      <% end %>
     </div>
 </div>

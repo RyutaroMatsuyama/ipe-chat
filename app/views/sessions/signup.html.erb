@@ -1,0 +1,26 @@
+<div class="template-main">
+    <div class="template-container">
+        <div class="title">
+        Sign up
+        </div>
+        <%= form_for(:session, url: signup_path) do |f| %>
+            
+            <%= f.label :name %>
+            <%= f.text_field :name, placeholder: "名前を入力してください" %>
+            
+            <%= f.label :email %>
+            <%= f.text_field :email, placeholder: "e-mailアドレスを入力してください" %>
+
+            <%= f.label :password %>
+            <%= f.password_field :password, placeholder: "パスワードを入力してください" %>
+
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, placeholder: "もう一度パスワードを入力してください" %>
+
+            <%= f.submit 'SIGN UP' %>
+
+      <% end %>
+      <%= link_to "LOGIN", login_path, class: "button2" %>
+
+    </div>
+</div>

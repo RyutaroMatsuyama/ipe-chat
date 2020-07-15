@@ -1,0 +1,11 @@
+<div class="template-main">
+    <div class="template-container">
+        <div class="title">
+        Edit
+        </div>
+        <%= form_with model: @message, url: message_path, local: true, class: "edit-form" do |f| %>
+            <%= f.text_area :content, value: @message.content, class: "edit-content" %>
+            <%= f.submit "UPDATE" %>
+        <% end %>
+    </div>
+</div>

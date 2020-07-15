@@ -1,0 +1,63 @@
+.template-main {
+    min-height: calc(100vh - 80px);
+    background-color: #e4e4e4;
+    padding-top: 4em;
+    .template-container{
+        width: 60%;
+        background-color: #fff;
+        border-radius: 10px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 1em;
+        .title{
+            font-size:40px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 1em;
+        }
+        form {
+            width: 60%;
+            margin: 0 auto;
+            label {
+                font-weight: bold;
+            }
+            input, textarea {
+                display: block;
+                margin: 1em auto;
+                width: 100%;
+            }
+            textarea {
+                margin: 2em auto;
+                height: 10em;
+            }
+            input[type=text], input[type=password] {
+                padding: .7em
+            }
+            input[type=submit]{
+                margin: 2em auto 1em auto;
+                width: 50%;
+                font-size: 20px;
+                background-color:#47266e;
+                color: #fff;
+                padding:10px;
+                border-radius: 5px;
+                font-weight: bold;
+                &:hover{
+                    opacity:0.8;
+                }          
+            }
+        }
+        .button2{
+            margin-bottom: 1em;
+            display: block;
+            font-size:20px;
+            color:#47266e;
+            text-decoration: underline;
+            border-style: none;
+            background-color: white;
+            &:hover{
+                text-decoration: none;
+            }
+        }
+    }
+}
