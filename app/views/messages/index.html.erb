@@ -11,19 +11,22 @@
                             <%= message.created_at.strftime("%Y/%m/%d(%a) %H:%M") %>
                             </span>
                         </p>
-                        <p class="message-content"><%= message.content %></p>
+                        <p class="message-content" id="js-comment-<%= message.id %>">
+                          <%= message.content %>
+                        </p>
+                        <%= form_with model: @message, class: "edit-form" do |f| %>
+                            <%= f.text_area :content, style:"display:none", class: "edit-content", value:message.content, id:"js-textarea-#{message.id}" %>
+                            <%= f.submit "UPDATE" ,style:"display:none", class:"update-btn", id:"js-update-#{message.id}" %>
+                        <% end %>
                     </div>
                     <div class="message-right">
                       <% if message.user_id == current_user.id %>
                         <ul>
                             <li>
-                                <%= link_to "edit", edit_message_path(message.id) %>
+                              <%= link_to "edit", edit_message_path(message.id), class:"edit-btn", remote:true, id:message.id %>
                             </li>
                             <li>
-                                <a href="#" class="delete-btn" data-id=<%= message.id %>>delete</a>
-                                <%= form_for(message, url: message_path(message.id), method: :delete, html: { id: "form_#{message.id}", class: "delete-form" }) do |f| %>
-                                　<%= f.submit "delete" %>
-                                <% end %>
+                              <%= link_to "delete", message_path(message.id), class:"delete-btn", method: :delete, remote:true %>
                             </li>
                         </ul>
                       <% end %>

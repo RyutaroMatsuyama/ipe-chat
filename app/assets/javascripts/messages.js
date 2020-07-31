@@ -1,53 +1,68 @@
-window.onload = function() {
-    var deleteBtn = document.getElementsByClassName("delete-btn");
-
-    for (var i = 0; i < deleteBtn.length; i++) {
-        deleteBtn[i].addEventListener("click", function(e) {
-            e.preventDefault();
-
-            if(window.confirm('本当に削除しますか？')) {
-                document.getElementById('form_' + this.dataset.id).submit();
-            }
-
-        }, false)
-    }
-};
-
-
 $(function() {
-    var boxes = $('.message-box')
-    boxes.each(function(i, box) {
-        $(box).hover(function() {
-            var content = $(box).find('.message-content')
-            content.animate({fontSize : '24px'}, 500);
-        }, function() {
-            var content = $(box).find('.message-content')
-            content.animate({fontSize : '16px'}, 500);
-        })
+  $(".chat-container").on("click",".delete-btn", function() {
+    var url = this.href
+    $.ajax({
+      type:'DELETE',
+      dataType:'json',
+      url: url,
+      processData: false,
+      contentType: false,
     })
-});
-
-
-$(function() {
-  var button = $("#remove-btn");
-  function clickFunc(){
-    $("img").toggle();
-  };
-  button.on("click", clickFunc)
-});
-
-$(function(){
-  var form = $("#chat-form")
-  form.on("keyup", function(){
-    var count = $(this).val().length;
-    $('#counter').text(count+"文字");
-    if (count>10){
-      $('#counter').css('color', 'red');
-    }else{
-      $('#counter').css('color', 'white');
-    }
+    .done(function(message){
+      $(".message-box[data-message-id="+ message.id+"]").remove();
+    })
+    .fail(function(){
+      alert('error');
+    })
   })
 });
+
+$(function() {
+  $(".chat-container").on("click", ".edit-btn", function() {
+    var messageId = this.id;
+    var messageContent = $('#js-comment-'+messageId);
+    var messageTextArea = $('#js-textarea-'+messageId);
+    var messageUpdateButton = $('#js-update-'+messageId);
+    $(messageContent).hide();
+    $(messageTextArea).show();
+    $(messageUpdateButton).show();
+  })
+});
+
+
+$(function(){
+  $(".chat-container").on("click",".update-btn",function(e){
+    e.preventDefault();
+    console.log("いいい");
+    var messageId = this.id.replace('js-update-','');
+    var messageTextArea = $('#js-textarea-'+messageId);
+    var content = messageTextArea.val();
+    var url = "http://192.168.99.101:3000/messages/" + messageId ;
+    $.ajax({
+        url: url,
+        type: 'PATCH',
+        data: {
+          message:{content:content}
+        },
+        dataType: 'json',
+    })
+    .done(function(message){
+      console.log("ううう");
+      var messageId = message.id;
+      var messageContent = $('#js-comment-'+messageId);
+      var messageTextArea = $('#js-textarea-'+messageId);
+      var messageUpdateButton = $('#js-update-'+messageId);
+      messageContent.show();
+      messageContent.text(message.content);
+      messageTextArea.hide();
+      messageUpdateButton.hide();
+    })
+    .fail(function() {
+      alert('error');
+    })
+  })
+})
+
 
 
 $(function() {
@@ -59,13 +74,13 @@ $(function() {
         var btn = (message.user_id == message.current_user_id) ? `<div class="message-right">
                                                                         <ul>
                                                                             <li>
-                                                                                <a href="/messages/${id}/edit">edit</a>
+                                                                                <a class="edit-btn" id=${id} data-remote="true" href="/messages/${id}/edit">edit</a>
                                                                             </li>
                                                                             <li>
-                                                                                <a rel="nofollow" data-method="delete" href="/messages/${id}">delete</a>
+                                                                                <a class="delete-btn" data-remote="true" rel="nofollow" data-method="delete" href="/messages/${id}">delete</a>
                                                                             </li>
                                                                         </ul>
-                                                                    </div>` : "";
+                                                                  </div>` : "";
         var html = `<div class="message-box" data-message-id="${ id }">
                      <div class="message-left">
                       <p class="message-info">
@@ -74,12 +89,17 @@ $(function() {
                           ${date}
                         </span>
                       </p>
-                      <p class="message-content">${content}</p>
-                    </div>
-                    ${btn}
-                   </div>`
+                      <p class="message-content" id="js-comment-${id}">${content}</p>
+                      <form class="edit-form" action="/messages" data-remote="true" method="post">
+                       <input name="utf8" type="hidden" value="✓">
+                       <input type="hidden" name="authenticity_token">
+                       <textarea style="display:none" class="edit-content" id="js-textarea-${id}" name="message[content]">${content}</textarea>
+                       <input type="submit" name="commit" value="UPDATE" style="display:none" class="update-btn" id="js-update-${id}" >
+                      </form>
+                     </div>
+                     ${btn}
+                    </div>`
         return html;
-
     }
 
     $('#new_message').on('submit', function(e) {
@@ -140,3 +160,45 @@ $(function() {
     }
   setInterval(reloadMessages, 5000);
 })
+
+
+
+
+
+
+$(function() {
+    var boxes = $('.message-box')
+    boxes.each(function(i, box) {
+        $(box).hover(function() {
+            var content = $(box).find('.message-content')
+            content.animate({fontSize : '24px'}, 500);
+        }, function() {
+            var content = $(box).find('.message-content')
+            content.animate({fontSize : '16px'}, 500);
+        })
+    })
+});
+
+
+$(function(){
+  var form = $("#chat-form")
+  form.on("keyup", function(){
+    var count = $(this).val().length;
+    $('#counter').text(count+"文字");
+    if (count>10){
+      $('#counter').css('color', 'red');
+    }else{
+      $('#counter').css('color', 'white');
+    }
+  })
+});
+
+
+
+$(function() {
+  var button = $("#remove-btn");
+  function clickFunc(){
+    $("img").toggle();
+  };
+  button.on("click", clickFunc)
+});

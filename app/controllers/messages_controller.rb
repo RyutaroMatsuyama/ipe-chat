@@ -27,7 +27,10 @@ class MessagesController < ApplicationController
    def update
         @message = Message.find(params[:id])
         if @message.user_id == current_user.id && @message.update(update_params)
-            redirect_to root_path, notice: '変更しました'
+          respond_to do |format|
+            format.html { redirect_to root_path, notice: '変更しました' }
+            format.json
+          end
         else
             redirect_to root_path, notice: '変更に失敗しました'
         end
@@ -36,12 +39,14 @@ class MessagesController < ApplicationController
    def destroy
      @message = Message.find(params[:id])
      if @message.user_id == current_user.id && @message.destroy
-         redirect_to root_path, notice: '削除しました'
+       respond_to do |format|
+         # format.html { redirect_to root_path, notice: '削除しました' }
+         format.json
+       end
      else
          redirect_to root_path, notice: '削除できませんでした'
      end
    end
-
 
    private
    def create_params
