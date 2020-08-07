@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
   get '/logout', to: 'sessions#logout'
 
+  get '/select', to: 'sessions#select'
+  post '/select', to: 'sessions#choose'
+
 
   namespace :api do
     get '/messages', to: 'messages#index', defaults: { format: 'json' }

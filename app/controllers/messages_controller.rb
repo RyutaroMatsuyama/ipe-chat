@@ -50,7 +50,7 @@ class MessagesController < ApplicationController
 
    private
    def create_params
-     params.require(:message).permit(:content).merge(user_id: current_user.id)
+     params.require(:message).permit(:content,:image,:recipient).merge(user_id: current_user.id)
    end
 
    def update_params

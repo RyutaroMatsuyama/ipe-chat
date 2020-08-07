@@ -33,7 +33,6 @@ $(function() {
 $(function(){
   $(".chat-container").on("click",".update-btn",function(e){
     e.preventDefault();
-    console.log("いいい");
     var messageId = this.id.replace('js-update-','');
     var messageTextArea = $('#js-textarea-'+messageId);
     var content = messageTextArea.val();
@@ -47,7 +46,6 @@ $(function(){
         dataType: 'json',
     })
     .done(function(message){
-      console.log("ううう");
       var messageId = message.id;
       var messageContent = $('#js-comment-'+messageId);
       var messageTextArea = $('#js-textarea-'+messageId);
@@ -71,6 +69,7 @@ $(function() {
         var name = (message.user_name !== null) ? `${ message.user_name }`: "";
         var date = (message.date !== null) ? `${ message.date }`: "";
         var id = (message.id !== null) ? `${ message.id }`: "";
+        var image = (message.image !== "") ? `<p><img class="picture" src="${message.image}"></p>`:"";
         var btn = (message.user_id == message.current_user_id) ? `<div class="message-right">
                                                                         <ul>
                                                                             <li>
@@ -89,6 +88,7 @@ $(function() {
                           ${date}
                         </span>
                       </p>
+                      ${image}
                       <p class="message-content" id="js-comment-${id}">${content}</p>
                       <form class="edit-form" action="/messages" data-remote="true" method="post">
                        <input name="utf8" type="hidden" value="✓">
@@ -104,9 +104,8 @@ $(function() {
 
     $('#new_message').on('submit', function(e) {
         e.preventDefault();
-        var messageContent = new FormData(this);
+        var messageContent= new FormData(this);
         var url = "/messages";
-
         $.ajax({
             url: url,
             type: 'POST',
@@ -118,6 +117,7 @@ $(function() {
 
         .done(function(message) {
             $('#chat-form').val('');
+            $('.image-form').val('');
             var html = buildHTML(message);
             $('.chat-container').append(html);
             $('.chat-container').scrollTop($('.chat-container')[0].scrollHeight);
@@ -158,7 +158,7 @@ $(function() {
         clearInterval
       }
     }
-  setInterval(reloadMessages, 5000);
+  // setInterval(reloadMessages, 5000);
 })
 
 
