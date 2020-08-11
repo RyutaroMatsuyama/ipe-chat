@@ -69,6 +69,7 @@ $(function() {
         var name = (message.user_name !== null) ? `${ message.user_name }`: "";
         var date = (message.date !== null) ? `${ message.date }`: "";
         var id = (message.id !== null) ? `${ message.id }`: "";
+        console.log(message.image);
         var image = (message.image !== "") ? `<p><img class="picture" src="${message.image}"></p>`:"";
         var btn = (message.user_id == message.current_user_id) ? `<div class="message-right">
                                                                         <ul>
@@ -158,7 +159,7 @@ $(function() {
         clearInterval
       }
     }
-  // setInterval(reloadMessages, 5000);
+  setInterval(reloadMessages, 5000);
 })
 
 

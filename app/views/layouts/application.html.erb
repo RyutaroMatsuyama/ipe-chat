@@ -20,6 +20,8 @@
 
       <ul>
         <% if current_user %>
+          <li><a><%="現在のユーザー："+current_user.name%></a></li>
+          <li><a><%="話相手："+partner.name %></a></li>
           <li><%= link_to "話す相手を選択", select_path %></li>
           <li><%= link_to "LOGOUT", logout_path %></li>
         <% else %>

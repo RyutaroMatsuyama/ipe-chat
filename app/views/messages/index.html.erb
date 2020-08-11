@@ -3,8 +3,6 @@
         <div class="chat-container">
           <% unless @messages.blank? %>
             <% for message in @messages do %>
-             <% if current_user.id.to_s == message.user_id.to_s or current_user.id.to_s == message.recipient.to_s %>
-              <% if partner.id.to_s == message.user_id.to_s or partner.id.to_s == message.recipient.to_s %>
                 <div class="message-box" data-message-id = <%=message.id %> >
                     <div class="message-left">
                         <p class="message-info">
@@ -39,8 +37,6 @@
                       <% end %>
                     </div>
                 </div>
-               <% end %>
-              <% end %>
             <% end %>
           <% else %>
                 <div class="message-box">
@@ -53,8 +49,8 @@
     <div class="chat-form">
       <%= form_with model: @message, url: messages_path, id: "new_message" do |f| %>
        <%= f.text_field :content, id: "chat-form" %>
+       <%= f.label :image,"画像をアップロード", class: "image-label" %>
        <%= f.file_field :image, class:"image-form" %>
-       <%= f.hidden_field :recipient, value:partner.id  %>
        <%=f.submit "SEND" %>
       <% end %>
     </div>

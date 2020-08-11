@@ -16,6 +16,14 @@ header{
       background-color: $sub-color;
       border-radius: 5px;
       margin-right: 2em;
+      .account{
+        padding: .7em 2em;
+        color: $main-color;
+        font-weight: bold;
+        text-decoration: none;
+        width: 100%;
+        display: block;
+      }
       a{
         padding: .7em 2em;
         color: $main-color;
