@@ -7,6 +7,9 @@
                     <div class="message-left">
                         <p class="message-info">
                             <%= message.user.name %>
+                            <% if message.reciever? %>
+                             <%= message.reciever %>
+                            <% end %>
                             <span>
                             <%= message.created_at.strftime("%Y/%m/%d(%a) %H:%M") %>
                             </span>
@@ -50,6 +53,9 @@
       <%= form_with model: @message, url: messages_path, id: "new_message" do |f| %>
        <%= f.text_field :content, id: "chat-form" %>
        <%= f.label :image,"画像をアップロード", class: "image-label" %>
+       <% if partner %>
+        <%= f.hidden_field :reciever, value:partner.id %>
+       <% end %>
        <%= f.file_field :image, class:"image-form" %>
        <%=f.submit "SEND" %>
       <% end %>

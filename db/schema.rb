@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_07_025213) do
+ActiveRecord::Schema.define(version: 2020_08_13_025725) do
 
   create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2020_08_07_025213) do
     t.datetime "updated_at", null: false
     t.string "image"
     t.string "recipient"
+    t.bigint "reciever"
+    t.index ["reciever"], name: "fk_rails_a0020a3ce9"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -29,4 +31,5 @@ ActiveRecord::Schema.define(version: 2020_08_07_025213) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "messages", "users", column: "reciever"
 end

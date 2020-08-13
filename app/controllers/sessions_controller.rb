@@ -42,8 +42,13 @@ class SessionsController < ApplicationController
       session[:partner_id] = user.id
       redirect_to root_path, notice:'話す相手を選択しました'
     else
-      redirect_to select_path, notice:'話す相手を選択できませんでした'
+      redirect_to root_path, notice:'全体と話す'
     end
+  end
+
+  def reselect
+    session.delete(:partner_id)
+    redirect_to select_path
   end
 
 

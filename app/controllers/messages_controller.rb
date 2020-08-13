@@ -1,7 +1,12 @@
 class MessagesController < ApplicationController
    def index
-     @messages = Message.includes(:user).all
-     @message = Message.new
+     if partner
+       @messages = Message.where(reciever:partner.id)
+       @message = Message.new
+     else
+       @messages = Message.includes(:user).where(reciever:nil)
+       @message = Message.new
+     end
    end
 
    def create
@@ -50,7 +55,7 @@ class MessagesController < ApplicationController
 
    private
    def create_params
-     params.require(:message).permit(:content,:image).merge(user_id: current_user.id)
+     params.require(:message).permit(:content,:image,:reciever).merge(user_id: current_user.id)
    end
 
    def update_params

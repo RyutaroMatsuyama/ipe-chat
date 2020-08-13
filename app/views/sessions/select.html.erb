@@ -3,7 +3,11 @@
         <div class="title">
         話す相手を選択
         </div>
-        <a class="button2" href="/">all</a>
+        <%= form_for(:session, url: select_path) do |f| %>
+          <%= f.hidden_field :name, value:"All" %>
+          <%= f.submit "All" %>
+        <% end %>
+
         <% for user in @users do %>
          <% unless current_user.id == user.id %>
           <%= form_for(:session, url: select_path) do |f| %>
