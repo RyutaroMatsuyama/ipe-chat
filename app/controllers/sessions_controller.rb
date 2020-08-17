@@ -40,7 +40,7 @@ class SessionsController < ApplicationController
     user = User.find_by(name: select_params[:name])
     if user
       session[:partner_id] = user.id
-      redirect_to root_path, notice:'話す相手を選択しました'
+      redirect_to user_messages_path(user.id), notice:'話す相手を選択しました'
     else
       redirect_to root_path, notice:'全体と話す'
     end

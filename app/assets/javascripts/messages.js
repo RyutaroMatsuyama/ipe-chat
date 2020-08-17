@@ -69,7 +69,6 @@ $(function() {
         var name = (message.user_name !== null) ? `${ message.user_name }`: "";
         var date = (message.date !== null) ? `${ message.date }`: "";
         var id = (message.id !== null) ? `${ message.id }`: "";
-        console.log(message.image);
         var image = (message.image !== "") ? `<p><img class="picture" src="${message.image}"></p>`:"";
         var btn = (message.user_id == message.current_user_id) ? `<div class="message-right">
                                                                         <ul>
@@ -131,7 +130,13 @@ $(function() {
     });
 
     var reloadMessages = function(message) {
-      if ($(window.location).attr('pathname') == '/' || $(window.location).attr('pathname') == '/messages/index'){
+      if ($(window.location).attr('pathname') == '/'
+      || $(window.location).attr('pathname') == '/messages/index'　
+      || $(window.location).attr('pathname') == '/users/'+'1'+'/messages'
+      || $(window.location).attr('pathname') == '/users/'+'2'+'/messages'
+      || $(window.location).attr('pathname') == '/users/'+'3'+'/messages'
+      || $(window.location).attr('pathname') == '/users/'+'4'+'/messages'
+      || $(window.location).attr('pathname') == '/users/'+'5'+'/messages'){
         var last_message_id = $('.message-box:last').data('message-id');
         var url = "/api/messages";
         $.ajax({
@@ -159,7 +164,7 @@ $(function() {
         clearInterval
       }
     }
-  // setInterval(reloadMessages, 5000);
+  setInterval(reloadMessages, 5000);
 })
 
 
