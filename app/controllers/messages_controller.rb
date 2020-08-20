@@ -1,10 +1,11 @@
 class MessagesController < ApplicationController
    def index
-     if partner
-       @messages = Message.where(reciever_id: partner.id, user_id: current_user.id).or(Message.where(reciever_id: current_user.id, user_id: partner.id))
+     if params[:user_id]
+       @id = params[:user_id]
+       @messages = Message.where(reciever_id: @id, user_id: current_user.id).or(Message.where(reciever_id: current_user.id, user_id: @id))
        @message = Message.new
      else
-       @messages = Message.includes(:user).where(reciever_id: nil)
+       @messages = Message.includes(:user).where(reciever_id:nil)
        @message = Message.new
      end
    end
@@ -52,6 +53,7 @@ class MessagesController < ApplicationController
          redirect_to root_path, notice: '削除できませんでした'
      end
    end
+
 
    private
    def create_params

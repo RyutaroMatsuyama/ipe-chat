@@ -39,7 +39,6 @@ class SessionsController < ApplicationController
   def choose
     user = User.find_by(name: select_params[:name])
     if user
-      session[:partner_id] = user.id
       redirect_to user_messages_path(user.id), notice:'話す相手を選択しました'
     else
       redirect_to root_path, notice:'全体と話す'
@@ -47,7 +46,6 @@ class SessionsController < ApplicationController
   end
 
   def reselect
-    session.delete(:partner_id)
     redirect_to select_path
   end
 

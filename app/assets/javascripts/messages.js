@@ -131,20 +131,22 @@ $(function() {
 
     var reloadMessages = function(message) {
       if ($(window.location).attr('pathname') == '/'
-      || $(window.location).attr('pathname') == '/messages/index'　
-      || $(window.location).attr('pathname') == '/users/'+'1'+'/messages'
-      || $(window.location).attr('pathname') == '/users/'+'2'+'/messages'
-      || $(window.location).attr('pathname') == '/users/'+'3'+'/messages'
-      || $(window.location).attr('pathname') == '/users/'+'4'+'/messages'
-      || $(window.location).attr('pathname') == '/users/'+'5'+'/messages'){
+      || $(window.location).attr('pathname') == '/messages/index'
+      || $(window.location).attr('pathname') == '/users/1/messages'
+      || $(window.location).attr('pathname') == '/users/2/messages'
+      || $(window.location).attr('pathname') == '/users/3/messages'
+      || $(window.location).attr('pathname') == '/users/4/messages'
+      || $(window.location).attr('pathname') == '/users/5/messages'){
         var last_message_id = $('.message-box:last').data('message-id');
+        var user_id = $('.userid').data('user-id');
         var url = "/api/messages";
         $.ajax({
           url:url,
           type:'Get',
           dataType:'json',
           data: {
-            last_message:last_message_id
+            last_message:last_message_id,
+            user_id:user_id
           }
         })
 
