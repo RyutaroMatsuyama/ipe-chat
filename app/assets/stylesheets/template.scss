@@ -16,7 +16,7 @@
             margin-bottom: 1em;
         }
         a{
-          
+
         }
         form {
             width: 60%;
@@ -61,6 +61,17 @@
             &:hover{
                 text-decoration: none;
             }
+        }
+        .button3{
+          margin: 2em auto 1em auto;
+          width: 50%;
+          font-size: 20px;
+          padding:10px;
+          border-radius: 5px;
+          font-weight: bold;
+          &:hover{
+              opacity:0.8;
+          }
         }
     }
 }

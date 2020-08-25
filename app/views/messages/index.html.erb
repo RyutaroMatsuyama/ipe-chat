@@ -8,8 +8,8 @@
                         <p class="message-info">
                             <%= message.user.name %>
                              <% if message.reciever_id? %>
-                              <p class="userid" data-user-id = <%=message.reciever_id %>>
-                               <%= @id %>
+                              <p class="userid" data-user-id = <%=@id %>>
+                               <%= message.reciever_id %>
                               <p>
                              <% end %>
                             <span>

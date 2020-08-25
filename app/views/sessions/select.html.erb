@@ -3,17 +3,15 @@
         <div class="title">
         話す相手を選択
         </div>
-        <%= form_for(:session, url: select_path) do |f| %>
-          <%= f.hidden_field :name, value:"All" %>
-          <%= f.submit "All" %>
-        <% end %>
+        <div class="button3">
+        <%= link_to "ALL", root_path %>
+        </div>
 
         <% for user in @users do %>
          <% unless current_user.id == user.id %>
-          <%= form_for(:session, url: select_path) do |f| %>
-           <%= f.hidden_field :name, value:user.name  %>
-           <%= f.submit user.name %>
-          <% end %>
+          <div class="button3">
+          <%= link_to "#{user.name}", user_messages_path(user.id) %>
+          </div>
          <% end %>
         <% end %>
     </div>

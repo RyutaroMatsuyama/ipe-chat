@@ -130,13 +130,14 @@ $(function() {
     });
 
     var reloadMessages = function(message) {
+      var code = $(window.location).attr('pathname');
+      var int2 = /^\/users\/[0-9]+\/messages$/;
+      var result = code.match(int2);
+      console.log(result);
       if ($(window.location).attr('pathname') == '/'
       || $(window.location).attr('pathname') == '/messages/index'
-      || $(window.location).attr('pathname') == '/users/1/messages'
-      || $(window.location).attr('pathname') == '/users/2/messages'
-      || $(window.location).attr('pathname') == '/users/3/messages'
-      || $(window.location).attr('pathname') == '/users/4/messages'
-      || $(window.location).attr('pathname') == '/users/5/messages'){
+      || result !== null
+      ){
         var last_message_id = $('.message-box:last').data('message-id');
         var user_id = $('.userid').data('user-id');
         var url = "/api/messages";
